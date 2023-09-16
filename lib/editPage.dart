@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hngx_stage_two/data.dart';
 
 class EditCvPage extends StatefulWidget{
   EditCvPage({Key? key, required this.updateHomescreen}):super(key: key);
@@ -12,6 +13,8 @@ class _EditCvPage extends State<EditCvPage>{
    bool missingFields = false;
    bool isLoading= false;
 
+   Data cvData = Data();
+
    // Every controller needed for the various text form fields
    TextEditingController fullnameController = TextEditingController();
    TextEditingController jobDescriptionController = TextEditingController();
@@ -22,13 +25,34 @@ class _EditCvPage extends State<EditCvPage>{
    TextEditingController workExperienceController = TextEditingController();
    TextEditingController volunteerController = TextEditingController();
    
+   void initializeControllers(){
 
+      setState(() {
+        fullnameController.text = cvData.name;
+        jobDescriptionController.text = cvData.jobTitle;
+        slackController.text = cvData.slackUsername;
+        gitHubController.text = cvData.gitHubHandle;
+        summaryController.text = cvData.summary;
 
+        educationController.text = cvData.education.join("#");
+        workExperienceController.text = cvData.workExperience.join("#");
+        volunteerController.text = cvData.volunteer.join("#");
+      });
+
+   }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    initializeControllers();
+    super.initState();
+  }
    @override
   void dispose() {
     // TODO: implement 
     
-    // Dispose all controllers used
+    // Disposed all controllers used
     fullnameController.dispose();
     jobDescriptionController.dispose();
     slackController.dispose();
